@@ -24,21 +24,32 @@ public class AddEventActivity extends AppCompatActivity {
     private int eventId = -1;
     private String selectedImageUri = "";
 
-    private final ActivityResultLauncher<String> mGetContent = registerForActivityResult(
-            new ActivityResultContracts.GetContent(),
-            uri -> {
-                if (uri != null) {
-                    selectedImageUri = uri.toString();
-                    Glide.with(this).load(uri).into(ivPreview);
-                    // Persist permission for local URIs
-                    try {
-                        getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+    private final ActivityResultLauncher<String[]> mGetContent =
+            registerForActivityResult(
+                    new ActivityResultContracts.OpenDocument(),
+                    uri -> {
+
+                        if (uri != null) {
+
+                            final int takeFlags =
+                                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                            | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION;
+
+                            try {
+                                getContentResolver()
+                                        .takePersistableUriPermission(uri, takeFlags);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            selectedImageUri = uri.toString();
+
+                            Glide.with(this)
+                                    .load(uri)
+                                    .into(ivPreview);
+                        }
                     }
-                }
-            }
-    );
+            );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +65,7 @@ public class AddEventActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSaveEvent);
 
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
-        findViewById(R.id.btnSelectImage).setOnClickListener(v -> mGetContent.launch("image/*"));
+        findViewById(R.id.btnSelectImage).setOnClickListener(v -> mGetContent.launch(new String[]{"image/*"}));
 
         eventId = getIntent().getIntExtra("EDIT_EVENT_ID", -1);
         if (eventId != -1) {

@@ -1,108 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_dark"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/bg_dark">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/bottom_nav_bg"
-            android:src="@android:drawable/ic_menu_revert"
-            app:tint="@color/white" />
-        <TextView
-            android:id="@+id/tvScreenTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Thêm sự kiện mới"
-            android:textColor="@color/text_primary"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="16dp">
-
-        <ImageView
-            android:id="@+id/ivEventPreview"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bottom_nav_bg"
+                android:src="@android:drawable/ic_menu_revert"
+                app:tint="@color/white" />
+            <TextView
+                android:id="@+id/tvScreenTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Thêm sự kiện mới"
+                android:textColor="@color/text_primary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/ivEventPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_bg"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <Button
+                android:id="@+id/btnSelectImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Chọn ảnh"
+                android:textAllCaps="false"
+                app:cornerRadius="8dp" />
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/edittext_bg"
-            android:scaleType="centerCrop"
-            android:src="@android:drawable/ic_menu_gallery" />
+            android:hint="Tiêu đề sự kiện"
+            android:paddingStart="16dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edittext_bg"
+            android:gravity="top"
+            android:hint="Mô tả sự kiện"
+            android:padding="16dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
+            android:inputType="textMultiLine" />
+
+        <EditText
+            android:id="@+id/etDate"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edittext_bg"
+            android:hint="Ngày diễn ra (dd/mm/yyyy)"
+            android:paddingStart="16dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/etLocation"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edittext_bg"
+            android:hint="Địa điểm"
+            android:paddingStart="16dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
+            android:inputType="text" />
 
         <Button
-            android:id="@+id/btnSelectImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Chọn ảnh"
-            android:textAllCaps="false"
-            app:cornerRadius="8dp" />
-    </FrameLayout>
+            android:id="@+id/btnSaveEvent"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/primary_blue"
+            android:text="Lưu sự kiện"
+            app:cornerRadius="16dp" />
 
-    <EditText
-        android:id="@+id/etTitle"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edittext_bg"
-        android:hint="Tiêu đề sự kiện"
-        android:paddingStart="16dp"
-        android:textColor="@color/text_primary"
-        android:textColorHint="@color/text_secondary" />
-
-    <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/edittext_bg"
-        android:gravity="top"
-        android:hint="Mô tả sự kiện"
-        android:padding="16dp"
-        android:textColor="@color/text_primary"
-        android:textColorHint="@color/text_secondary" />
-
-    <EditText
-        android:id="@+id/etDate"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/edittext_bg"
-        android:hint="Ngày diễn ra (dd/mm/yyyy)"
-        android:paddingStart="16dp"
-        android:textColor="@color/text_primary"
-        android:textColorHint="@color/text_secondary" />
-
-    <EditText
-        android:id="@+id/etLocation"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/edittext_bg"
-        android:hint="Địa điểm"
-        android:paddingStart="16dp"
-        android:textColor="@color/text_primary"
-        android:textColorHint="@color/text_secondary" />
-
-    <Button
-        android:id="@+id/btnSaveEvent"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@color/primary_blue"
-        android:text="Lưu sự kiện"
-        app:cornerRadius="16dp" />
-
-</LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

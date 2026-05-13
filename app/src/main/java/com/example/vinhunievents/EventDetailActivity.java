@@ -38,7 +38,13 @@ public class EventDetailActivity extends AppCompatActivity {
             tvDesc.setText(event.description);
             
             if (event.imagePath != null && !event.imagePath.isEmpty()) {
-                Glide.with(this).load(Uri.parse(event.imagePath)).into(ivBanner);
+                Glide.with(this)
+                        .load(Uri.parse(event.imagePath))
+                        .placeholder(android.R.drawable.ic_menu_gallery)
+                        .error(android.R.drawable.ic_menu_report_image)
+                        .into(ivBanner);
+            } else {
+                ivBanner.setImageResource(android.R.drawable.ic_menu_gallery);
             }
         }
     }

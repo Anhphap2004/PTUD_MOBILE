@@ -17,8 +17,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // Initialize sample data for demo
         DataInitializer.initData(this);
 
         etEmail = findViewById(R.id.etEmail);
@@ -33,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            // Check login against Room database
             User user = AppDatabase.getInstance(this).appDao().login(email, password);
             if (user != null) {
                 // Login success

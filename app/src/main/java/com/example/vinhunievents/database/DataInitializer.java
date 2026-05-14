@@ -31,26 +31,33 @@ public class DataInitializer {
             student.mssv = "225748020110001";
             student.role = "STUDENT";
             student.className = "63K1";
-            student.department = "Công nghệ thông tin";
+            student.department = "Kỹ thuật phần mềm";
             student.phone = "0911111111";
             student.birthday = "01/01/2004";
             dao.insertUser(student);
         }
         
-        // Add sample events if list is empty
         if (dao.getAllEvents().isEmpty()) {
             Event e1 = new Event();
-            e1.title = "Hội thảo kỹ năng mềm cho sinh viên năm nhất";
-            e1.description = "Sự kiện nhằm cung cấp các kỹ năng cần thiết cho tân sinh viên để thích nghi với môi trường đại học...";
+            e1.title = "Hội thảo kỹ năng mềm cho sinh viên";
+            e1.description = "Sự kiện nhằm cung cấp các kỹ năng cần thiết cho tân sinh viên.";
             e1.date = "20/05/2026";
-            e1.location = "Hội trường A, Trường Đại học Vinh";
+            e1.location = "Hội trường A";
+            e1.category = "Học tập";
+            e1.creatorName = "Đoàn Trường";
+            e1.timeLimit = "14:00 - 17:00";
+            e1.maxCapacity = 200;
             dao.insertEvent(e1);
             
             Event e2 = new Event();
-            e2.title = "Ngày hội việc làm VinhUni 2026";
-            e2.description = "Cơ hội tiếp cận hàng trăm doanh nghiệp hàng đầu và tìm kiếm cơ việc làm thực tập...";
+            e2.title = "Ngày hội việc làm 2026";
+            e2.description = "Cơ hội tiếp cận hàng trăm doanh nghiệp hàng đầu.";
             e2.date = "15/06/2026";
-            e2.location = "Sân vận động trường";
+            e2.location = "Sân vận động";
+            e2.category = "Tin tức sự kiện";
+            e2.creatorName = "Trung tâm Hướng nghiệp";
+            e2.timeLimit = "08:00 - 16:00";
+            e2.maxCapacity = 500;
             dao.insertEvent(e2);
         }
     }

@@ -24,6 +24,7 @@ public class HomeFragment extends Fragment implements EventAdapter.OnEventClickL
     private User currentUser;
     private boolean isAdmin = false;
     private TextView tvUserName;
+    private int userId;
 
     @Nullable
     @Override
@@ -31,15 +32,15 @@ public class HomeFragment extends Fragment implements EventAdapter.OnEventClickL
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         rvEvents = view.findViewById(R.id.rvEvents);
-        tvUserName = view.findViewById(R.id.tvUserName); // Need to add ID to layout
+        tvUserName = view.findViewById(R.id.tvUserName);
 
-        int userId = getActivity().getIntent().getIntExtra("USER_ID", -1);
+        userId = getActivity().getIntent().getIntExtra("USER_ID", -1);
         if (userId != -1) {
             currentUser = AppDatabase.getInstance(getActivity()).appDao().getUserById(userId);
             if (currentUser != null) {
                 tvUserName.setText(currentUser.fullName);
                 isAdmin = "ADMIN".equals(currentUser.role);
-                // Update UI based on role
+                
                 if (isAdmin) {
                     view.findViewById(R.id.adminAddEvent).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.adminAttendance).setVisibility(View.VISIBLE);
@@ -47,12 +48,18 @@ public class HomeFragment extends Fragment implements EventAdapter.OnEventClickL
                     view.findViewById(R.id.adminAddEvent).setOnClickListener(v -> {
                         startActivity(new Intent(getActivity(), AddEventActivity.class));
                     });
+
+                    view.findViewById(R.id.adminAttendance).setOnClickListener(v -> {
+                        startActivity(new Intent(getActivity(), AdminSelectEventActivity.class));
+                    });
                 }
             }
         }
 
         view.findViewById(R.id.btnViewAllEvents).setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), EventsActivity.class));
+            Intent intent = new Intent(getActivity(), EventsActivity.class);
+            intent.putExtra("USER_ID", userId);
+            startActivity(intent);
         });
 
         loadEvents();
@@ -63,7 +70,7 @@ public class HomeFragment extends Fragment implements EventAdapter.OnEventClickL
     @Override
     public void onResume() {
         super.onResume();
-        loadEvents(); // Refresh data when returning from Add/Edit screen
+        loadEvents();
     }
 
     private void loadEvents() {
@@ -77,6 +84,7 @@ public class HomeFragment extends Fragment implements EventAdapter.OnEventClickL
     public void onEventClick(Event event) {
         Intent intent = new Intent(getActivity(), EventDetailActivity.class);
         intent.putExtra("EVENT_ID", event.id);
+        intent.putExtra("USER_ID", userId);
         startActivity(intent);
     }
 

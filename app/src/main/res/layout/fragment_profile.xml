@@ -243,5 +243,22 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <!-- New History Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="LỊCH SỬ ĐĂNG KÝ &amp; ĐIỂM DANH"
+            android:textColor="@color/primary_blue"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRegistrationHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:nestedScrollingEnabled="false" />
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

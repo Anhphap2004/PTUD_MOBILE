@@ -21,41 +21,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Tin tức &amp; Sự kiện"
+            android:text="Điểm danh sự kiện"
             android:textColor="@color/text_primary"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroupFilter"
+    <TextView
+        android:id="@+id/tvAttendanceEventTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:singleSelection="true">
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipNews"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tin tức sự kiện"
-            style="@style/Widget.Material3.Chip.Filter" />
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipUnit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Đoàn cơ sở"
-            style="@style/Widget.Material3.Chip.Filter" />
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipStudy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Học tập"
-            style="@style/Widget.Material3.Chip.Filter" />
-    </com.google.android.material.chip.ChipGroup>
+        android:layout_marginTop="24dp"
+        android:textColor="@color/primary_blue"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvEventsList"
+        android:id="@+id/rvStudentList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp" />
+
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.vinhunievents;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -10,17 +11,19 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private int userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        userId = getIntent().getIntExtra("USER_ID", -1);
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         
         // Initial fragment
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new HomeFragment())
-                .commit();
+        loadFragment(new HomeFragment());
 
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -38,15 +41,18 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new MoreFragment();
                 }
                 
-                // For other IDs, we could add more fragments
                 if (selectedFragment != null) {
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, selectedFragment)
-                            .commit();
+                    loadFragment(selectedFragment);
                     return true;
                 }
                 return false;
             }
         });
+    }
+
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 }

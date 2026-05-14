@@ -14,7 +14,7 @@ import java.util.List;
 public class EventsActivity extends AppCompatActivity implements EventAdapter.OnEventClickListener {
 
     private RecyclerView rvEvents;
-    private EventAdapter adapter;
+    private int userId;
     private boolean isAdmin = false;
 
     @Override
@@ -22,13 +22,9 @@ public class EventsActivity extends AppCompatActivity implements EventAdapter.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
 
-        rvEvents = findViewById(R.id.rvEventsList); // Update layout ID
-        if (rvEvents == null) {
-            // Fallback if ID is different
-            rvEvents = new RecyclerView(this); 
-        }
+        rvEvents = findViewById(R.id.rvEventsList);
 
-        int userId = getIntent().getIntExtra("USER_ID", -1);
+        userId = getIntent().getIntExtra("USER_ID", -1);
         if (userId != -1) {
             User user = AppDatabase.getInstance(this).appDao().getUserById(userId);
             if (user != null) {
@@ -43,7 +39,7 @@ public class EventsActivity extends AppCompatActivity implements EventAdapter.On
 
     private void loadEvents() {
         List<Event> events = AppDatabase.getInstance(this).appDao().getAllEvents();
-        adapter = new EventAdapter(events, isAdmin, this);
+        EventAdapter adapter = new EventAdapter(events, isAdmin, this);
         rvEvents.setLayoutManager(new LinearLayoutManager(this));
         rvEvents.setAdapter(adapter);
     }
@@ -52,6 +48,7 @@ public class EventsActivity extends AppCompatActivity implements EventAdapter.On
     public void onEventClick(Event event) {
         Intent intent = new Intent(this, EventDetailActivity.class);
         intent.putExtra("EVENT_ID", event.id);
+        intent.putExtra("USER_ID", userId);
         startActivity(intent);
     }
 

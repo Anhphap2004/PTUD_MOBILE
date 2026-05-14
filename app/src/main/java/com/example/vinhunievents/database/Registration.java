@@ -12,5 +12,6 @@ public class Registration {
     public int eventId;
     public String registrationDate;
     public boolean isAttended;
+    public boolean isChecked; // Admin processed
 
 }

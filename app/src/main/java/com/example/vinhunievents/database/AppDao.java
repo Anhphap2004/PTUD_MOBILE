@@ -37,6 +37,15 @@ public interface AppDao {
     @Insert
     void registerForEvent(Registration registration);
     
+    @Query("SELECT * FROM registrations WHERE userId = :userId AND eventId = :eventId LIMIT 1")
+    Registration getRegistration(int userId, int eventId);
+    
     @Query("SELECT * FROM registrations WHERE userId = :userId")
     List<Registration> getUserRegistrations(int userId);
+
+    @Query("SELECT * FROM registrations WHERE eventId = :eventId")
+    List<Registration> getEventRegistrations(int eventId);
+
+    @androidx.room.Update
+    void updateRegistration(Registration registration);
 }

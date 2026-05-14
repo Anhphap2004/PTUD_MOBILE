@@ -12,5 +12,9 @@ public class Event {
     public String description;
     public String date;
     public String location;
-    public String imagePath; // Can be a local resource name or path
+    public String imagePath;
+    public String category; // "Tin tức sự kiện", "Đoàn cơ sở", "Học tập"
+    public String creatorName;
+    public String timeLimit;
+    public int maxCapacity;
 }

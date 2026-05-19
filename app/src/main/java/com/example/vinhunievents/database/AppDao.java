@@ -48,4 +48,7 @@ public interface AppDao {
 
     @androidx.room.Update
     void updateRegistration(Registration registration);
+    @Query("SELECT * FROM events ORDER BY id DESC LIMIT 5")
+    List<Event> getLatestEvents();
+
 }

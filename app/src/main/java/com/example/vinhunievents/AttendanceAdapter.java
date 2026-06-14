@@ -64,8 +64,9 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
         }
 
         holder.btnPresent.setOnClickListener(v -> {
-
-            listener.onProcessAttendance(reg, true);
+            if (listener != null) {
+                listener.onProcessAttendance(reg, true);
+            }
 
             holder.btnPresent.animate()
                     .scaleX(1.05f)
@@ -74,8 +75,9 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
         });
 
         holder.btnAbsent.setOnClickListener(v -> {
-
-            listener.onProcessAttendance(reg, false);
+            if (listener != null) {
+                listener.onProcessAttendance(reg, false);
+            }
 
             holder.btnAbsent.animate()
                     .scaleX(1.05f)

@@ -25,6 +25,8 @@
         <activity android:name=".AddEventActivity" />
         <activity android:name=".AdminAttendanceActivity" />
         <activity android:name=".AdminSelectEventActivity" />
+        <activity android:name=".ContactActivity" />
+        <activity android:name=".AdminFeedbackActivity" />
 
     </application>
 

@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home"
-        android:title="Home"/>
-
+        android:icon="@android:drawable/ic_menu_today"
+        android:title="Trang chủ" />
     <item
         android:id="@+id/nav_notifications"
-        android:icon="@drawable/ic_notifications"
-        android:title="Thông báo"/>
-
+        android:icon="@android:drawable/ic_popup_reminder"
+        android:title="Thông báo" />
     <item
-        android:id="@+id/nav_qr"
-        android:icon="@drawable/ic_qr"
-        android:title="QR"/>
-
+        android:id="@+id/nav_tickets"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Vé của tôi" />
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/ic_person"
-        android:title="Cá nhân"/>
-
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="Cá nhân" />
     <item
         android:id="@+id/nav_more"
-        android:icon="@drawable/ic_menu"
-        android:title="Khác"/>
-
+        android:icon="@android:drawable/ic_menu_more"
+        android:title="Khác" />
 </menu>

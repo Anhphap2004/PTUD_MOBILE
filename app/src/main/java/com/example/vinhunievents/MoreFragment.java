@@ -21,6 +21,15 @@ public class MoreFragment extends Fragment {
             startActivity(intent);
         });
 
+        view.findViewById(R.id.btnContact).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ContactActivity.class);
+            if (getActivity() != null) {
+                int userId = getActivity().getIntent().getIntExtra("USER_ID", -1);
+                intent.putExtra("USER_ID", userId);
+            }
+            startActivity(intent);
+        });
+
         return view;
     }
 }

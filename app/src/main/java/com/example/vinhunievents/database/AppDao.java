@@ -17,6 +17,9 @@ public interface AppDao {
     @Query("SELECT * FROM users WHERE id = :userId")
     User getUserById(int userId);
 
+    @Query("SELECT * FROM users")
+    List<User> getAllUsers();
+
     // Events
     @Insert
     void insertEvent(Event event);
@@ -48,7 +51,18 @@ public interface AppDao {
 
     @androidx.room.Update
     void updateRegistration(Registration registration);
+
+    @Query("SELECT COUNT(*) FROM registrations WHERE eventId = :eventId")
+    int getRegistrationCount(int eventId);
+
     @Query("SELECT * FROM events ORDER BY id DESC LIMIT 5")
     List<Event> getLatestEvents();
+
+    // Feedback
+    @Insert
+    void insertFeedback(Feedback feedback);
+
+    @Query("SELECT * FROM feedback ORDER BY id DESC")
+    List<Feedback> getAllFeedback();
 
 }

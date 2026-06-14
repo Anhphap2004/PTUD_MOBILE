@@ -177,6 +177,42 @@
                 </RelativeLayout>
 
                 <!-- More items... -->
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider_color" android:layout_marginHorizontal="16dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/btnContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:paddingHorizontal="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:id="@+id/iconContact"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/edittext_bg"
+                        android:padding="10dp"
+                        android:src="@android:drawable/ic_dialog_info"
+                        app:tint="@color/accent_orange" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@id/iconContact"
+                        android:text="Liên hệ &amp; Hỗ trợ"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@android:drawable/ic_media_next"
+                        app:tint="@color/text_secondary" />
+                </RelativeLayout>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

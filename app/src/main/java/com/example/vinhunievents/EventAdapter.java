@@ -60,9 +60,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             holder.adminActions.setVisibility(View.GONE);
         }
 
-        holder.itemView.setOnClickListener(v -> listener.onEventClick(event));
-        holder.btnEdit.setOnClickListener(v -> listener.onEditClick(event));
-        holder.btnDelete.setOnClickListener(v -> listener.onDeleteClick(event));
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onEventClick(event);
+            }
+        });
+        holder.btnEdit.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onEditClick(event);
+            }
+        });
+        holder.btnDelete.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onDeleteClick(event);
+            }
+        });
     }
 
     @Override

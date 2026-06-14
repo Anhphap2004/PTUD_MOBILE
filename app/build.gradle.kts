@@ -4,11 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.vinhunievents"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.vinhunievents"
@@ -48,6 +44,9 @@ dependencies {
 
     // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // QR Code Generation (ZXing)
+    implementation("com.google.zxing:core:3.5.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)

@@ -34,6 +34,9 @@ public class DataInitializer {
             student.department = "Kỹ thuật phần mềm";
             student.phone = "0911111111";
             student.birthday = "01/01/2004";
+            student.gpa = 3.65;
+            student.rl = 95;
+            student.rank = 12;
             dao.insertUser(student);
         }
         

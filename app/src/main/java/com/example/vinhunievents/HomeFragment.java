@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment
     private boolean isAdmin = false;
 
     private TextView tvUserName;
+    private TextView tvGpa, tvRl, tvRank;
 
     private int userId;
 
@@ -62,6 +63,9 @@ public class HomeFragment extends Fragment
         rvEvents = view.findViewById(R.id.rvEvents);
 
         tvUserName = view.findViewById(R.id.tvUserName);
+        tvGpa = view.findViewById(R.id.tvGpaValue);
+        tvRl = view.findViewById(R.id.tvRlValue);
+        tvRank = view.findViewById(R.id.tvRankValue);
 
         rvEvents.setLayoutManager(
                 new LinearLayoutManager(getActivity())
@@ -90,6 +94,9 @@ public class HomeFragment extends Fragment
         }
 
         tvUserName.setText(currentUser.fullName);
+        tvGpa.setText(String.valueOf(currentUser.gpa));
+        tvRl.setText(String.valueOf(currentUser.rl));
+        tvRank.setText("#" + currentUser.rank);
 
         isAdmin = "ADMIN".equals(currentUser.role);
 
@@ -137,6 +144,10 @@ public class HomeFragment extends Fragment
     }
 
     private void setupButtons(View view) {
+
+        view.findViewById(R.id.btnSchedule).setOnClickListener(v -> {
+            Toast.makeText(getActivity(), "Tính năng Lịch học đang được phát triển", Toast.LENGTH_SHORT).show();
+        });
 
         view.findViewById(R.id.btnViewAllEvents)
                 .setOnClickListener(v -> {

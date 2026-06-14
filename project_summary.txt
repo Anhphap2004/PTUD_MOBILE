@@ -1,0 +1,174 @@
+Dự án: VinhUniEvents
+Package chính: com.example.vinhunievents
+
+1) Mục tiêu hệ thống
+VinhUniEvents là một ứng dụng Android dùng để quản lý và theo dõi sự kiện cho sinh viên/trường học VinhUni. Ứng dụng cho phép người dùng đăng nhập, xem sự kiện, đăng ký tham gia, xem vé/QR, nhận thông báo, xem hồ sơ cá nhân và gửi phản hồi. Tài khoản ADMIN có thêm quyền thêm/sửa/xóa sự kiện, xem dashboard thống kê và điểm danh sinh viên.
+
+2) Công nghệ và thư viện chính
+- Ngôn ngữ: Java
+- Kiến trúc lưu trữ: Room Database (SQLite cục bộ)
+- UI: AndroidX, Material Components, ConstraintLayout, RecyclerView, BottomNavigationView
+- Ảnh sự kiện: Glide
+- Tạo QR: ZXing
+
+3) Cấu trúc hệ thống (tóm tắt)
+
+Do_An/
+├─ build.gradle.kts
+├─ settings.gradle.kts
+├─ app/
+│  ├─ build.gradle.kts
+│  └─ src/main/
+│     ├─ AndroidManifest.xml
+│     ├─ java/com/example/vinhunievents/
+│     │  ├─ LoginActivity.java
+│     │  ├─ MainActivity.java
+│     │  ├─ HomeFragment.java
+│     │  ├─ AdminDashboardFragment.java
+│     │  ├─ MoreFragment.java
+│     │  ├─ ProfileFragment.java
+│     │  ├─ MyTicketsFragment.java
+│     │  ├─ NotificationFragment.java
+│     │  ├─ EventsActivity.java
+│     │  ├─ EventDetailActivity.java
+│     │  ├─ AddEventActivity.java
+│     │  ├─ AdminSelectEventActivity.java
+│     │  ├─ AdminAttendanceActivity.java
+│     │  ├─ AdminFeedbackActivity.java
+│     │  ├─ ContactActivity.java
+│     │  ├─ adapters...
+│     │  ├─ database/
+│     │  │  ├─ AppDatabase.java
+│     │  │  ├─ AppDao.java
+│     │  │  ├─ DataInitializer.java
+│     │  │  ├─ User.java
+│     │  │  ├─ Event.java
+│     │  │  ├─ Registration.java
+│     │  │  └─ Feedback.java
+│     │  └─ util/
+│     │     └─ QRCodeGenerator.java
+│     ├─ res/layout/
+│     │  ├─ activity_login.xml
+│     │  ├─ activity_main.xml
+│     │  ├─ activity_events.xml
+│     │  ├─ activity_event_detail.xml
+│     │  ├─ activity_add_event.xml
+│     │  ├─ activity_admin_attendance.xml
+│     │  ├─ activity_admin_feedback.xml
+│     │  ├─ activity_admin_select_event.xml
+│     │  ├─ activity_contact.xml
+│     │  ├─ fragment_home.xml
+│     │  ├─ fragment_admin_dashboard.xml
+│     │  ├─ fragment_profile.xml
+│     │  ├─ fragment_my_tickets.xml
+│     │  ├─ fragment_notifications.xml
+│     │  ├─ fragment_more.xml
+│     │  └─ item_*.xml
+│     ├─ res/menu/bottom_nav_menu.xml
+│     └─ res/values/strings.xml, themes.xml, colors.xml
+
+4) Vai trò của từng phần
+
+4.1. Tầng giao diện (UI)
+- LoginActivity: màn hình đăng nhập.
+- MainActivity: chứa bottom navigation và thay fragment theo tab.
+- HomeFragment: trang chủ cho sinh viên hoặc dashboard admin.
+- AdminDashboardFragment: dashboard thống kê dành cho admin.
+- EventsActivity: danh sách toàn bộ sự kiện, có tìm kiếm và lọc danh mục.
+- EventDetailActivity: xem chi tiết sự kiện và đăng ký tham gia.
+- AddEventActivity: thêm/chỉnh sửa sự kiện.
+- AdminSelectEventActivity: chọn sự kiện để điểm danh.
+- AdminAttendanceActivity: điểm danh sinh viên đã đăng ký.
+- AdminFeedbackActivity: xem và xóa phản hồi.
+- ContactActivity: liên hệ, gọi điện, gửi email và gửi phản hồi.
+- ProfileFragment: xem hồ sơ cá nhân và lịch sử đăng ký.
+- MyTicketsFragment: xem vé/QR và trạng thái điểm danh.
+- NotificationFragment: hiển thị thông báo liên quan đến đăng ký/điểm danh.
+- MoreFragment: đăng xuất và mở trang liên hệ.
+
+4.2. Tầng dữ liệu (Room)
+- AppDatabase: khai báo cơ sở dữ liệu Room, cho phép truy cập cục bộ.
+- AppDao: chứa các truy vấn CRUD cho users, events, registrations, feedback.
+- DataInitializer: khởi tạo dữ liệu mẫu cho ADMIN, STUDENT và một số sự kiện ban đầu.
+- Entities:
+  - User: thông tin tài khoản, vai trò, điểm GPA/RL, xếp hạng.
+  - Event: thông tin sự kiện, mô tả, thời gian, địa điểm, ảnh, danh mục.
+  - Registration: liên kết user với event, lưu thời gian đăng ký và trạng thái điểm danh.
+  - Feedback: lưu nội dung phản hồi của người dùng.
+
+4.3. Tầng tiện ích
+- QRCodeGenerator: tạo mã QR cho mỗi lượt đăng ký, mã hóa theo eventId:userId:regId.
+
+4.4. Adapter hiển thị danh sách
+- EventAdapter: hiển thị sự kiện, hỗ trợ hành động xem/sửa/xóa theo quyền admin.
+- AttendanceAdapter: hiển thị danh sách sinh viên đăng ký để admin điểm danh.
+- FeedbackAdapter: hiển thị phản hồi và cho phép xóa.
+- RegistrationAdapter: hiển thị lịch sử đăng ký trong hồ sơ.
+- MyTicketsAdapter: hiển thị vé của tôi kèm QR và trạng thái điểm danh.
+- NotificationAdapter: hiển thị danh sách thông báo dạng đơn giản.
+
+5) Hệ thống hoạt động như thế nào
+
+5.1. Khởi động và đăng nhập
+- Ứng dụng mở vào LoginActivity.
+- DataInitializer.initData() được gọi để nạp dữ liệu mẫu nếu cơ sở dữ liệu còn trống.
+- Người dùng nhập email và mật khẩu.
+- AppDao.login(email, password) kiểm tra trong bảng users.
+- Nếu đúng, ứng dụng chuyển sang MainActivity và truyền USER_ID.
+
+5.2. Phân quyền theo vai trò
+- MainActivity đọc USER_ID, truy vấn user từ Room.
+- Nếu role = ADMIN:
+  - tab Trang chủ sẽ mở AdminDashboardFragment.
+  - có thêm tính năng thêm sự kiện và điểm danh.
+- Nếu role = STUDENT:
+  - tab Trang chủ mở HomeFragment.
+
+5.3. Điều hướng chính
+- Bottom navigation có 5 mục: Trang chủ, Thông báo, Vé của tôi, Cá nhân, Khác.
+- Mỗi mục thay thế fragment tương ứng trong fragment_container.
+
+5.4. Trang chủ
+- Với sinh viên: hiển thị tên, GPA, RL, xếp hạng và danh sách sự kiện mới nhất.
+- Với admin: hiển thị dashboard thống kê, sự kiện nổi bật, và các nút thao tác nhanh.
+
+5.5. Xem và đăng ký sự kiện
+- HomeFragment hoặc EventsActivity mở EventDetailActivity khi người dùng chọn một sự kiện.
+- EventDetailActivity hiển thị thông tin chi tiết, ảnh banner, mô tả, thời gian, địa điểm, người tạo và sức chứa.
+- Nếu người dùng chưa đăng ký, họ có thể bấm nút Đăng ký tham gia.
+- Khi đăng ký, một bản ghi Registration được tạo trong bảng registrations.
+
+5.6. Vé của tôi và QR
+- MyTicketsFragment lấy danh sách Registration của user.
+- MyTicketsAdapter tạo QR từ eventId:userId:regId bằng QRCodeGenerator.
+- Trạng thái điểm danh được hiển thị theo isAttended.
+
+5.7. Thông báo
+- NotificationFragment tạo danh sách thông báo động dựa trên các đăng ký của user.
+- Nếu registration đã được admin xử lý thì hiển thị cập nhật điểm danh.
+- Nếu chưa có dữ liệu, hệ thống hiển thị thông báo chào mừng.
+
+5.8. Hồ sơ cá nhân
+- ProfileFragment đọc thông tin user từ bảng users.
+- Hiển thị thông tin cá nhân và lịch sử đăng ký sự kiện.
+
+5.9. Chức năng admin
+- Thêm/chỉnh sửa/xóa sự kiện: AddEventActivity + EventAdapter.
+- Điểm danh:
+  - AdminSelectEventActivity cho admin chọn sự kiện.
+  - AdminAttendanceActivity hiển thị danh sách sinh viên đã đăng ký.
+  - Khi điểm danh, cập nhật isChecked và isAttended trong Registration.
+- Dashboard admin:
+  - thống kê tổng số sự kiện, số lượt đăng ký, số lượt đã điểm danh và tỉ lệ tham gia.
+  - hiển thị top sự kiện có nhiều đăng ký.
+- Phản hồi:
+  - ContactActivity cho phép gửi feedback.
+  - AdminFeedbackActivity cho phép admin xem và xóa feedback.
+
+5.10. Đăng xuất và liên hệ
+- MoreFragment chứa nút đăng xuất để quay về LoginActivity và xóa ngữ cảnh phiên làm việc.
+- ContactActivity hỗ trợ gọi điện, gửi email và gửi phản hồi vào database.
+
+6) Kết luận ngắn
+Đây là một ứng dụng quản lý sự kiện sinh viên dạng offline/local, tổ chức theo mô hình giao diện Activity/Fragment + Room Database. Luồng chính là: đăng nhập -> phân quyền -> xem sự kiện -> đăng ký -> sinh QR/vé -> admin điểm danh và quản trị dữ liệu.
+

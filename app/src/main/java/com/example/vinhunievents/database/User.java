@@ -20,4 +20,9 @@ public class User {
     public String birthday;
     public String hometown;
     public String department;
+
+    // Academic Stats
+    public double gpa = 0.0;
+    public int rl = 0;
+    public int rank = 0;
 }

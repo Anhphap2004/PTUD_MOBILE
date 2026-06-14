@@ -65,4 +65,7 @@ public interface AppDao {
     @Query("SELECT * FROM feedback ORDER BY id DESC")
     List<Feedback> getAllFeedback();
 
+    @androidx.room.Delete
+    void deleteFeedback(Feedback feedback);
+
 }

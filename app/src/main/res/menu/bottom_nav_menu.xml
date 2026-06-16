@@ -20,4 +20,5 @@
         android:id="@+id/nav_more"
         android:icon="@android:drawable/ic_menu_more"
         android:title="Khác" />
+
 </menu>

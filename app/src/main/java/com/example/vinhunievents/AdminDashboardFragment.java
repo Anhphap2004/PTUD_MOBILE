@@ -2,12 +2,17 @@ package com.example.vinhunievents;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -16,6 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vinhunievents.database.AppDatabase;
 import com.example.vinhunievents.database.Event;
 import com.example.vinhunievents.database.Registration;
+import com.example.vinhunievents.database.User;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.List;
 
@@ -24,6 +36,51 @@ public class AdminDashboardFragment extends Fragment implements EventAdapter.OnE
     private TextView tvTotalEvents, tvTotalRegistrations, tvTotalAttended, tvAttendanceRate;
     private RecyclerView rvHotEvents;
     private int userId;
+
+    private final ActivityResultLauncher<ScanOptions> qrCodeLauncher = registerForActivityResult(new ScanContract(), result -> {
+        if (result.getContents() != null) {
+            processScannedData(result.getContents());
+        }
+    });
+
+    private void processScannedData(String data) {
+        try {
+            String[] parts = data.split(":");
+            if (parts.length == 3) {
+                int eventId = Integer.parseInt(parts[0]);
+                int studentId = Integer.parseInt(parts[1]);
+                int regId = Integer.parseInt(parts[2]);
+
+                Registration reg = AppDatabase.getInstance(getActivity()).appDao().getRegistration(studentId, eventId);
+                if (reg != null) {
+                    if (reg.isAttended) {
+                        Toast.makeText(getActivity(), "Sinh viên này đã điểm danh rồi!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        reg.isAttended = true;
+                        reg.isChecked = true;
+                        AppDatabase.getInstance(getActivity()).appDao().updateRegistration(reg);
+                        
+                        User user = AppDatabase.getInstance(getActivity()).appDao().getUserById(studentId);
+                        String name = user != null ? user.fullName : "Sinh viên";
+                        
+                        new AlertDialog.Builder(getActivity())
+                            .setTitle("Điểm danh thành công")
+                            .setMessage("Đã điểm danh cho: " + name)
+                            .setPositiveButton("OK", null)
+                            .show();
+                        
+                        loadDashboardData();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Không tìm thấy thông tin đăng ký!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getActivity(), "Mã QR không hợp lệ!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Lỗi khi quét mã: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Nullable
     @Override
@@ -38,15 +95,48 @@ public class AdminDashboardFragment extends Fragment implements EventAdapter.OnE
         tvTotalRegistrations = view.findViewById(R.id.tvTotalRegistrations);
         tvTotalAttended = view.findViewById(R.id.tvTotalAttended);
         tvAttendanceRate = view.findViewById(R.id.tvAttendanceRate);
+
+        setupGreeting(view);
+        
         rvHotEvents = view.findViewById(R.id.rvHotEvents);
+        rvHotEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         setupQuickActions(view);
-
-        rvHotEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
         loadDashboardData();
-
         return view;
     }
+
+    private void setupGreeting(View view) {
+        TextView tvGreeting = view.findViewById(R.id.tvGreeting);
+        TextView tvTodayDate = view.findViewById(R.id.tvTodayDate);
+
+        if (tvTodayDate != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd/MM/yyyy", new Locale("vi", "VN"));
+            String currentDate = sdf.format(new Date());
+            // Capitalize first letter of day
+            currentDate = currentDate.substring(0, 1).toUpperCase() + currentDate.substring(1);
+            tvTodayDate.setText(currentDate);
+        }
+
+        if (tvGreeting != null) {
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            String greeting;
+
+            if (hour >= 5 && hour < 12) {
+                greeting = "Chào buổi sáng, Admin 👋";
+            } else if (hour >= 12 && hour < 18) {
+                greeting = "Chào buổi chiều, Admin 👋";
+            } else if (hour >= 18 && hour < 22) {
+                greeting = "Chào buổi tối, Admin 👋";
+            } else {
+                greeting = "Chúc ngủ ngon, Admin 🌙";
+            }
+            tvGreeting.setText(greeting);
+        }
+    }
+
+
 
     @Override
     public void onResume() {
@@ -61,6 +151,15 @@ public class AdminDashboardFragment extends Fragment implements EventAdapter.OnE
 
         view.findViewById(R.id.btnAdminAttendance).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), AdminSelectEventActivity.class));
+        });
+
+        view.findViewById(R.id.btnAdminScanQR).setOnClickListener(v -> {
+            ScanOptions options = new ScanOptions();
+            options.setPrompt("Quét mã QR trên vé của sinh viên");
+            options.setBeepEnabled(true);
+            options.setOrientationLocked(true);
+            options.setCaptureActivity(CaptureActivityPortrait.class);
+            qrCodeLauncher.launch(options);
         });
 
         view.findViewById(R.id.btnAdminContact).setOnClickListener(v -> {

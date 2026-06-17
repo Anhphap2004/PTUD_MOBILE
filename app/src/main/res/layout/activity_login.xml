@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
-                android:text="Power By (Ziang - 2025) | Chính sách &amp; Điều khoản | Liên hệ"
+                android:text="Power By (Phapp - 2026) | Chính sách &amp; Điều khoản | Liên hệ"
                 android:textColor="@color/text_secondary"
                 android:textSize="10sp" />
 

@@ -45,6 +45,13 @@ public class NotificationFragment extends Fragment {
                                 "Hệ thống"
                         ));
                     }
+                    if (reg.isCertified) {
+                        notifications.add(new NotificationAdapter.NotificationItem(
+                                "🎓 Giấy chứng nhận: " + event.title,
+                                "Bạn đã nhận được giấy chứng nhận tham gia sự kiện. Hãy vào trang cá nhân để xem.",
+                                "Chứng nhận"
+                        ));
+                    }
                     notifications.add(new NotificationAdapter.NotificationItem(
                             "🔔 Nhắc hẹn: " + event.title,
                             "Bạn có hẹn tham gia vào ngày " + event.date + ". Đừng quên nhé!",

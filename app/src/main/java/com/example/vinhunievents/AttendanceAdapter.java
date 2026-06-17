@@ -25,6 +25,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
 
     public interface OnAttendanceClickListener {
         void onProcessAttendance(Registration registration, boolean present);
+        void onIssueCertificate(Registration registration);
     }
 
     public AttendanceAdapter(List<Registration> registrations,
@@ -85,6 +86,12 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
                     .setDuration(120);
         });
 
+        holder.btnIssueCert.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onIssueCertificate(reg);
+            }
+        });
+
         updateAttendanceUI(holder, reg);
     }
 
@@ -120,9 +127,23 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
                         Color.parseColor("#FF5A5A")
                 );
 
+                // Show Certificate button only if attended
+                if (reg.isCertified) {
+                    holder.btnIssueCert.setVisibility(View.VISIBLE);
+                    holder.btnIssueCert.setText("Đã cấp GCN");
+                    holder.btnIssueCert.setEnabled(false);
+                    holder.btnIssueCert.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+                } else {
+                    holder.btnIssueCert.setVisibility(View.VISIBLE);
+                    holder.btnIssueCert.setText("Cấp GCN");
+                    holder.btnIssueCert.setEnabled(true);
+                    holder.btnIssueCert.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#3D85F6")));
+                }
+
             } else {
 
                 holder.tvStatus.setText("VẮNG MẶT");
+                holder.btnIssueCert.setVisibility(View.GONE);
 
                 holder.tvStatus.setTextColor(
                         Color.parseColor("#FF4B4B")
@@ -184,6 +205,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
 
         MaterialButton btnPresent;
         MaterialButton btnAbsent;
+        MaterialButton btnIssueCert;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -194,6 +216,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
 
             btnPresent = itemView.findViewById(R.id.btnPresent);
             btnAbsent = itemView.findViewById(R.id.btnAbsent);
+            btnIssueCert = itemView.findViewById(R.id.btnIssueCert);
         }
     }
 

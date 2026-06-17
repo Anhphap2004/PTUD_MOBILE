@@ -42,9 +42,15 @@ public interface AppDao {
     
     @Query("SELECT * FROM registrations WHERE userId = :userId AND eventId = :eventId LIMIT 1")
     Registration getRegistration(int userId, int eventId);
+
+    @Query("SELECT * FROM registrations WHERE id = :regId LIMIT 1")
+    Registration getRegistrationById(int regId);
     
     @Query("SELECT * FROM registrations WHERE userId = :userId")
     List<Registration> getUserRegistrations(int userId);
+
+    @Query("SELECT * FROM registrations WHERE userId = :userId AND isCertified = 1")
+    List<Registration> getCertifiedRegistrations(int userId);
 
     @Query("SELECT * FROM registrations WHERE eventId = :eventId")
     List<Registration> getEventRegistrations(int eventId);

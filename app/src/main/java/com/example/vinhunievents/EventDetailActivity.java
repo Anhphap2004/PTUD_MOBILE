@@ -53,6 +53,7 @@ public class EventDetailActivity extends AppCompatActivity {
             btnRegister.setEnabled(false);
             btnRegister.setText("Đã đăng ký tham gia");
             btnRegister.setBackgroundColor(Color.parseColor("#2D3748"));
+            btnRegister.setTextColor(Color.WHITE);
         }
     }
 

@@ -25,7 +25,55 @@
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
     </LinearLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@drawable/avataadmin"
+            android:padding="11dp"
+            app:tint="@color/white" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvGreeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chào buổi sáng, Admin 👋"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvTodayDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Thứ năm, 18/06/2026"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/avata"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="● Online"
+            android:textColor="@color/accent_green"
+            android:textSize="11sp" />
+    </LinearLayout>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -50,6 +98,7 @@
                     app:cardBackgroundColor="@color/bg_card"
                     app:cardCornerRadius="16dp">
                     <LinearLayout
+                        android:id="@+id/tvsukienbackground"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -80,6 +129,7 @@
                     app:cardBackgroundColor="@color/bg_card"
                     app:cardCornerRadius="16dp">
                     <LinearLayout
+                        android:id="@+id/tvsukienbackground2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -184,7 +234,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:columnCount="3">
+                android:columnCount="4">
 
                 <!-- Add Event -->
                 <LinearLayout
@@ -237,6 +287,34 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Điểm danh"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+
+                <!-- Scan QR -->
+                <LinearLayout
+                    android:id="@+id/btnAdminScanQR"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/edittext_bg"
+                        android:padding="16dp"
+                        android:src="@android:drawable/ic_menu_camera"
+                        app:tint="@color/accent_green"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Quét QR"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp"
                         android:gravity="center"/>

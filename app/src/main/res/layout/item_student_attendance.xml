@@ -111,6 +111,20 @@
                 app:backgroundTint="@color/accent_green"
                 app:cornerRadius="12dp" />
 
+            <!-- BUTTON CẤP GCN -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnIssueCert"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginStart="8dp"
+                android:text="Cấp GCN"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:backgroundTint="@color/primary_blue"
+                app:cornerRadius="12dp" />
+
         </LinearLayout>
 
         <!-- STATUS -->

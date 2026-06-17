@@ -22,7 +22,7 @@
             android:id="@+id/ivFeedbackAvatar"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/avata"
+            android:src="@drawable/avataadmin"
             android:scaleType="centerCrop"
             android:padding="2dp"
             android:background="@drawable/edittext_bg"

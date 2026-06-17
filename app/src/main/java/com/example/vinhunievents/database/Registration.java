@@ -13,5 +13,6 @@ public class Registration {
     public String registrationDate;
     public boolean isAttended;
     public boolean isChecked; // Admin processed
+    public boolean isCertified; // Admin issued certificate
 
 }

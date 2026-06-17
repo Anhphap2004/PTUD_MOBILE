@@ -45,9 +45,20 @@ public class AdminAttendanceActivity extends AppCompatActivity implements Attend
     public void onProcessAttendance(Registration registration, boolean present) {
         registration.isChecked = true;
         registration.isAttended = present;
+        // Reset certified if marked as absent
+        if (!present) registration.isCertified = false;
+        
         AppDatabase.getInstance(this).appDao().updateRegistration(registration);
         String msg = present ? "Đã đánh dấu CÓ MẶT" : "Đã đánh dấu VẮNG MẶT";
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        loadStudentList();
+    }
+
+    @Override
+    public void onIssueCertificate(Registration registration) {
+        registration.isCertified = true;
+        AppDatabase.getInstance(this).appDao().updateRegistration(registration);
+        Toast.makeText(this, "Đã cấp giấy chứng nhận thành công!", Toast.LENGTH_SHORT).show();
         loadStudentList();
     }
 }

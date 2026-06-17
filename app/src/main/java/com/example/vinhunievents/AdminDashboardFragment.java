@@ -165,6 +165,12 @@ public class AdminDashboardFragment extends Fragment implements EventAdapter.OnE
         view.findViewById(R.id.btnAdminContact).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), AdminFeedbackActivity.class));
         });
+
+        view.findViewById(R.id.btnAdminViewAllEvents).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), EventsActivity.class);
+            intent.putExtra("USER_ID", userId);
+            startActivity(intent);
+        });
     }
 
     private void loadDashboardData() {
